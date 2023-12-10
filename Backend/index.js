@@ -22,4 +22,3 @@ const start = async () => {
 }
 
 start()
-// Kodlar ulaştı
