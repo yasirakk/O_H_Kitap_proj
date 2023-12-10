@@ -12,7 +12,7 @@ app.use('/api/v1/books', books)
 
 const start = async () => {
     try {
-        await connect(process.env.MONGO_URI);
+        await connect(process.env.MONGODB_URL);
         app.listen(port, () => {
             console.log("sunucu çalışmaya başladı....." + port);
         })
