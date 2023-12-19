@@ -3,17 +3,14 @@ const mongoose = require('mongoose');
 const bookSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true,
-        cast: false
+        required: [true, "isim boş bırakılamaz"],
     },
     author: {
         type: String,
-        required: true,
-        cast: false
+        required: [true, "yazar boş bırakılamaz"],
     },
     publishYear: {
-        type: Number,
-        cast: false
+        type: Number
     }
 }, {
     timestamps: true
