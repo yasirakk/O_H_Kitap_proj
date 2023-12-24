@@ -13,8 +13,7 @@ const bookSchema = new mongoose.Schema({
     },
     publishYear: {
         type: Number,
-        min: [1453, "Yayın tarihi 1453'ten sonra olmalıdır"],
-        max: [2021, "Yayın tarihi 2021'den önce olmalıdır"]
+        min: [1900, "Yayın tarihi 1900'den eski olmamalıdır"]
     },
     barcode: {
         type: String,
