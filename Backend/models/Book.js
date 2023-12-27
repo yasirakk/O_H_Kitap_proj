@@ -1,3 +1,14 @@
+/*
+    {
+    "title": "Birinci Kitap",
+    "author": "Yasir",
+    "publishYear": 1992,
+    "barcode": "bizimki",
+    "publisher": "Nebevi Yayinevi",
+    "stock": 40,
+    "price": 55
+    }
+*/
 const mongoose = require('mongoose');
 
 const bookSchema = new mongoose.Schema({
