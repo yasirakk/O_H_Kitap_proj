@@ -3,51 +3,116 @@
     "title": "Birinci Kitap",
     "author": "Yasir",
     "publishYear": 1992,
-    "barcode": "bizimki",
-    "publisher": "Nebevi Yayinevi",
-    "stock": 40,
-    "price": 55
+    "description": "roman",
+    "category": "falanca katagori",
+    "language": "Turkce",
+    "publicationDate": 2020,
+    "edition": "ilk baski",
+    "placeOfPublication": "Diyarbakir",
+    "width": 3,
+    "height": 25,
+    "pageCount": 230,
+    "coverType": "karton kapak",
+    "paperType": "Beyaz yaprak",
+    "barcode": "YA100000",
+    "stock": 5,
+    "price": 67,
+
     }
 */
 const mongoose = require('mongoose');
 
+
 const bookSchema = new mongoose.Schema({
+    // Kitap Bilgileri
     title: {
         type: String,
-        required: [true, "isim boş bırakılamaz"],
-        maxlength: [100, "isim en fazla 100 karakter olabilir"]
+        required: [true, "Başlık boş bırakılamaz"],
     },
     author: {
         type: String,
-        required: [true, "yazar boş bırakılamaz"],
-        maxlength: [100, "yazar en fazla 100 karakter olabilir"]
+        required: [true, "Yazar boş bırakılamaz"],
     },
-    publishYear: {
+    description: {
+        type: String,
+        required: false,
+    },
+    category: {
+        type: String,
+        required: [true, "Kategori boş bırakılamaz"],
+    },
+    language: {
+        type: String,
+        required: [true, "Dil boş bırakılamaz"],
+    },
+
+    // Yayın Bilgileri
+    publicationDate: {
+        type: Date,
+        required: [true, "Basım tarihi boş bırakılamaz"]
+    },
+    edition: {
         type: Number,
-        min: [1900, "Yayın tarihi 1900'den eski olmamalıdır"]
+        required: [true, "Baskı boş bırakılamaz"],
+        min: [1, "Baskı numarası en az 1 olabilir"],
     },
+    placeOfPublication: {
+        type: String,
+        required: [true, "Basım yeri boş bırakılamaz"],
+    },
+
+    // Fiziksel Özellikler
+    width: {
+        type: Number,
+        required: [true, "Genişlik boş bırakılamaz"],
+        min: [1, "Genişlik en az 1 olabilir"]
+    },
+    height: {
+        type: Number,
+        required: [true, "Yükseklik boş bırakılamaz"],
+        min: [1, "Yükseklik en az 1 olabilir"]
+    },
+    pageCount: {
+        type: Number,
+        required: [true, "Sayfa sayısı boş bırakılamaz"],
+        min: [1, "Sayfa sayısı en az 1 olabilir"],
+    },
+    coverType: {
+        type: String,
+        required: [true, "Kapak türü boş bırakılamaz"],
+    },
+    paperType: {
+        type: String,
+        required: [true, "Kağıt türü boş bırakılamaz"],
+    },
+
+    // Stok ve Fiyatlandırma
     barcode: {
         type: String,
-        required: [true, "barkod boş bırakılamaz"],
-        unique: true
-    },
-    publisher: {
-        type: String,
-        required: [true, "yayınevi boş bırakılamaz"],
-        maxlength: [50, "yayınevi en fazla 50 karakter olabilir"]
+        required: [true, "Barkod boş bırakılamaz"],
+        unique: true,
     },
     stock: {
         type: Number,
-        required: [true, "stok boş bırakılamaz"],
-        min: [1, "Stok birden az olamaz"]
+        required: [true, "Stok miktarı boş bırakılamaz"],
+        min: [0, "Stok miktarı en az 0 olabilir"],
     },
     price: {
         type: Number,
-        required: [true, "fiyat boş bırakılamaz"],
-        min: [5, "Fiyat beşten az olamaz"]
-    }
+        required: [true, "Fiyat boş bırakılamaz"],
+        min: [0, "Fiyat en az 0 olabilir"],
+    },
+
+    // Diğer Bilgiler
+    image: {
+        type: String,
+        required: false,
+    },
+
 }, {
     timestamps: true
 });
 
+
 module.exports = mongoose.model('Book', bookSchema);
+
