@@ -7,7 +7,7 @@
     "category": "falanca katagori",
     "language": "Turkce",
     "publicationDate": 2020,
-    "edition": "ilk baski",
+    "edition": 1,
     "placeOfPublication": "Diyarbakir",
     "width": 3,
     "height": 25,

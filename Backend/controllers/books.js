@@ -96,11 +96,25 @@ const getBook = async (req, res) => {
 
 }
 
-const addBook = async (req, res) => {
+const addBooks = async (req, res) => {
+    const booksData = req.body; // İstekten gelen kitap verileri (bir dizi olarak bekleniyor)
 
-    const newBook = {   
-        title: req.body.title, 
-        author: req.body.author, 
+    // Kitapları MongoDB'ye ekleyin
+    Book.insertMany(booksData)
+        .then(insertedBooks => {
+            res.status(201).json({ message: 'Kitaplar başarıyla eklendi', data: insertedBooks });
+        })
+        .catch(error => {
+            console.error('Kitap ekleme hatası:', error);
+            res.status(500).json({ message: 'Dahili Sunucu Hatası' });
+        });
+};
+
+
+const addBook = (req, res) => {
+    const newBook = {
+        title: req.body.title,
+        author: req.body.author,
         publishYear: req.body.publishYear,
         description: req.body.description,
         category: req.body.category,
@@ -113,13 +127,22 @@ const addBook = async (req, res) => {
         pageCount: req.body.pageCount,
         coverType: req.body.coverType,
         paperType: req.body.paperType,
-        barcode: req.body.barcode, 
-        stock: req.body.stock, 
+        barcode: req.body.barcode,
+        stock: req.body.stock,
         price: req.body.price
-        }
-    const book = await Book.create(newBook)
-    return res.status(201).send({ message: "Başarılı", data: book })
-}
+    };
+
+    Book.create(newBook)
+        .then(book => {
+            res.status(201).send({ message: "Başarılı", data: book });
+        })
+        .catch(error => {
+            console.error('Kitap ekleme hatası:', error);
+            res.status(500).json({ message: 'Dahili Sunucu Hatası' });
+        });
+};
+
+
 
 const updateBook = async (req, res) => {
 
@@ -135,6 +158,24 @@ const updateBook = async (req, res) => {
 
 }
 
+// Örnek ürün dizisi
+const products = [];
+
+// Ürünleri tek seferde MongoDB'ye ekleyen fonksiyon
+const addProductsToMongoDB = async () => {
+    try {
+        // insertMany metodu ile ürünleri MongoDB'ye ekleyin
+        const result = await Book.insertMany(products);
+        
+        // Başarı durumunda bilgi mesajını yazdırın
+        console.log(`${result.length} ürün başarıyla eklendi.`);
+    } catch (error) {
+        // Hata durumunda hatayı konsola yazdırın
+        console.error('Ürün ekleme hatası:', error);
+    }
+};
+
+
 const deleteBook = async (req, res) => {
 
     const { id } = req.params
@@ -147,4 +188,4 @@ const deleteBook = async (req, res) => {
 
 }
 
-module.exports = { getAllBooks, getBook, addBook, updateBook, deleteBook }
+module.exports = { getAllBooks, getBook, addBook, addBooks, updateBook, deleteBook }
