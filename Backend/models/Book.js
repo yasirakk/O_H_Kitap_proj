@@ -16,8 +16,7 @@
     "paperType": "Beyaz yaprak",
     "barcode": "YA100000",
     "stock": 5,
-    "price": 67,
-
+    "price": 67
     }
 */
 const mongoose = require('mongoose');

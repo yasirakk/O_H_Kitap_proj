@@ -1,5 +1,11 @@
 const Book = require('../models/Book')
 
+const prepareQueryField = (fieldValue) => {
+    return fieldValue.toLocaleLowerCase()
+        .replace(/i/gi, '[iİ]')
+        .replace(/ı/gi, '[ıI]');
+};
+
 const getAllBooks = async (req, res) => {
     try {
         // İstemciden gelen sorgu parametrelerini çözümlemek
@@ -8,18 +14,12 @@ const getAllBooks = async (req, res) => {
 
         // Eğer 'author' varsa, sorgu objesine eklemek
         if (author) {
-            queryObj.author = author;
+            queryObj.author = { $regex: prepareQueryField(author), $options: 'i' };
         }
 
         // Eğer 'title' varsa, sorgu objesine ekle
         if (title) {
-            // Türkçe karakter sorunlarını gidermek için başlığı düzenle
-            const modifiedTitle = title.toLocaleLowerCase()
-                .replace(/i/gi, '[iİ]')
-                .replace(/ı/gi, '[ıI]');
-
-            // Regex ile kelime kelime arama ekle
-            queryObj.title = { $regex: modifiedTitle, $options: 'i' };
+            queryObj.title = { $regex: prepareQueryField(title), $options: 'i' };
         }
 
         // Eğer 'numericFilters' varsa, sayısal filtreleri işle
