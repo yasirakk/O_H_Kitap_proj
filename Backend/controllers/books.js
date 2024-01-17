@@ -158,22 +158,7 @@ const updateBook = async (req, res) => {
 
 }
 
-// Örnek ürün dizisi
-const products = [];
 
-// Ürünleri tek seferde MongoDB'ye ekleyen fonksiyon
-const addProductsToMongoDB = async () => {
-    try {
-        // insertMany metodu ile ürünleri MongoDB'ye ekleyin
-        const result = await Book.insertMany(products);
-        
-        // Başarı durumunda bilgi mesajını yazdırın
-        console.log(`${result.length} ürün başarıyla eklendi.`);
-    } catch (error) {
-        // Hata durumunda hatayı konsola yazdırın
-        console.error('Ürün ekleme hatası:', error);
-    }
-};
 
 
 const deleteBook = async (req, res) => {
