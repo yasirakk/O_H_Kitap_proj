@@ -11,10 +11,12 @@ require('dotenv').config()
 const port = process.env.PORT || 3000
 
 // middleware
-app.use(express.json())
+app.use(express.json());
 app.use('/api/v1/books', books)
 app.use(notFound)
 app.use(errorHandler)
+
+
 
 const start = async () => {
     try {
@@ -26,5 +28,6 @@ const start = async () => {
         console.log(error);
     }
 }
+
 
 start()

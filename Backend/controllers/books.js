@@ -94,20 +94,11 @@ const getBook = async (req, res) => {
 
     return res.status(201).send({ message: "Başarılı", data: book })
 
-}
+};
 
 const addBooks = async (req, res) => {
-    const booksData = req.body; // İstekten gelen kitap verileri (bir dizi olarak bekleniyor)
-
-    // Kitapları MongoDB'ye ekleyin
-    Book.insertMany(booksData)
-        .then(insertedBooks => {
-            res.status(201).json({ message: 'Kitaplar başarıyla eklendi', data: insertedBooks });
-        })
-        .catch(error => {
-            console.error('Kitap ekleme hatası:', error);
-            res.status(500).json({ message: 'Dahili Sunucu Hatası' });
-        });
+    const books = await Book.insertMany(req.body)
+    return res.status(201).send({ message: "Başarılı", data: books })
 };
 
 
