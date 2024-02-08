@@ -1,4 +1,5 @@
 const Book = require('../models/Book')
+var jwt = require('jsonwebtoken');
 
 const prepareQueryField = (fieldValue) => {
     return fieldValue.toLocaleLowerCase()
@@ -164,4 +165,31 @@ const deleteBook = async (req, res) => {
 
 }
 
-module.exports = { getAllBooks, getBook, addBook, addBooks, updateBook, deleteBook }
+const login = async (req, res) => {
+    console.log("merhaba");
+    const id = 99
+
+    const secret = process.env.JWT_SECRET
+
+    const email = req.body.email
+    const token = jwt.sign({ id, email }, secret, { expiresIn: '1d' })
+
+    return res.status(201).send({ message: "Başarılı", data: token })
+
+}
+
+const cokGizli = async (req, res) => {
+
+    return res.status(201).send({ message: "Başarılı", data: req.yasir })
+}
+
+module.exports = { 
+    getAllBooks,
+    getBook,
+    addBook,
+    addBooks,
+    updateBook,
+    deleteBook,
+    login,
+    cokGizli 
+}
